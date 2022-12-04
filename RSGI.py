@@ -69,7 +69,7 @@ year_of_manufacture = st.select_slider(
     'Select the year of manufacture of the vehicle',
     options=a["year_of_manufacture"].unique(),
     value=(2018))
-st.write('You selected the year', Age_of_vehicle )
+st.write('You selected the year', year_of_manufacture )
 option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
 result = st.selectbox('select your analysis category', option_list)
 
@@ -89,7 +89,7 @@ if result == 'amount paid':
     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month', 'Ageofthevehicle', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+    b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     age = this_year -  year_of_manufacture 
     st.write(' age of the vehicle >', age)
