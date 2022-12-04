@@ -72,17 +72,20 @@ year_of_manufacture = st.select_slider(
 st.write('You selected the year', year_of_manufacture )
 option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
 result = st.selectbox('select your analysis category', option_list)
+age = this_year -  year_of_manufacture
 
 if result == 'amount paid':
     # claim amount
     st.header('*amount_paid*')
     st.caption('amount in crores')
-    b = a.pivot_table(values='amount_paid_y',
-                      index=['year_month', 'Ageofthevehicle'],
+#     age of the vehicle >', age
+    c = a[a['year_of_manufacture']>= year_of_manufacture]
+    b = c.pivot_table(values='amount_paid_y',
+                      index=['year_month'],
                       columns=['reapairer_type'],
                       aggfunc='sum')
     b.reset_index(inplace=True)
-    b.columns = ['year_month', 'Ageofthevehicle', 'dealer', 'OTHERS', 'TRS']
+    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
     b['dealer'] = b['dealer'] / 10000000
     b['OTHERS'] = b['OTHERS'] / 10000000
     b['TRS'] = b['TRS'] / 10000000
@@ -91,9 +94,28 @@ if result == 'amount paid':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    age = this_year -  year_of_manufacture 
-    st.write(' age of the vehicle >', age)
+    st.write(' age of the vehicle >=', age)
     b
+    c = a[a['year_of_manufacture']< year_of_manufacture]
+    b = c.pivot_table(values='amount_paid_y',
+                      index=['year_month'],
+                      columns=['reapairer_type'],
+                      aggfunc='sum')
+    b.reset_index(inplace=True)
+    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+    b['dealer'] = b['dealer'] / 10000000
+    b['OTHERS'] = b['OTHERS'] / 10000000
+    b['TRS'] = b['TRS'] / 10000000
+    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+    b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+           'TRS_%']]
+    st.write(' age of the vehicle <', age)
+    b
+    
+    
+
 
 
 # if result == 'claim count':
