@@ -10,6 +10,7 @@ st.set_page_config(page_title="RSGI Dashboard", page_icon=":bar_chart:", layout=
 # with st.sidebar.header('1. Upload your CSV data'):
 #     uploaded_file = st.sidebar.file_uploader("Upload your input file", type=['csv'])
 csv_files = ['data.000.csv', 'data.001.csv', 'data.002.csv', 'data.003.csv', 'data.004.csv', 'data.005.csv', 'data.006.csv', 'data.007.csv', 'data.008.csv', 'data.009.csv']
+todays_date = date.today()
 this_year = todays_date.year
 
 li = []
