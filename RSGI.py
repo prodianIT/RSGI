@@ -66,7 +66,7 @@ st.markdown("##")
 Age_of_vehicle = st.select_slider(
     'Select the year of manufacture of the vehicle',
     options=a["year_of_manufacture"].unique(),
-    value=('2018'))
+    value=(2018))
 st.write('You selected the year', Age_of_vehicle )
 option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
 result = st.selectbox('select your analysis category', option_list)
