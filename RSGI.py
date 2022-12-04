@@ -65,9 +65,11 @@ a = df.query(
 # ---- MAINPAGE ----
 st.title(":bar_chart: RSGI Dashboard")
 st.markdown("##")
+x = a["year_of_manufacture"].unique()
+x=sorted(x)
 year_of_manufacture = st.select_slider(
     'Select the year of manufacture of the vehicle',
-    options=a["year_of_manufacture"].unique(),
+    options=x,
     value=(2018))
 st.write('You selected the year', year_of_manufacture )
 option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
