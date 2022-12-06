@@ -78,7 +78,7 @@ x=sorted(x)
 #     options=x,
 #     value=(4))
 
-age1 = st.select_slider(
+age1 = st.slider(
     'Select the year of manufacture of the vehicle',
         1, 30, (4, 21), step=1)
 aage,bage=age1
