@@ -83,8 +83,8 @@ age1 = st.slider(
         1, 30, (4, 21), step=1)
 aage,bage=age1
 st.write('You selected the age between :', aage,'&',bage )
-# option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
-# result = st.selectbox('select your analysis category', option_list)
+option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
+result = st.selectbox('select your analysis category', option_list)
 
 if result == 'amount paid':
     # claim amount
