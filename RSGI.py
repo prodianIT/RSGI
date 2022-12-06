@@ -166,7 +166,16 @@ if result == 'claim count':
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     st.write(' age of the vehicle >=', age1)
-    b
+    st.dataframe(b.style.format("{:7,.2f}"))
+    b1=b   
+    csv = convert_df(b1)
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv1'
+    )
         # claim counts
     st.header('*claim_number*')
     st.caption('count in thousands')
@@ -186,7 +195,16 @@ if result == 'claim count':
     b = b[['year_month','dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     st.write(' age of the vehicle <', age1)
-    b
+    st.dataframe(b.style.format("{:.2f}"))
+    b2=b
+    csv = convert_df(b2)
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv'
+    )
 
 
 if result == 'repair amount':
@@ -210,7 +228,16 @@ if result == 'repair amount':
     b = b[['year_month',  'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
 
-    b
+    st.dataframe(b.style.format("{:7,.2f}"))
+    b1=b   
+    csv = convert_df(b1)
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv1'
+    )
     st.write(' age of the vehicle <', age1)
     st.caption('amount in crores')
     c = a[a['age']< age1]
@@ -228,7 +255,16 @@ if result == 'repair amount':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month',  'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    b
+    st.dataframe(b.style.format("{:.2f}"))
+    b2=b
+    csv = convert_df(b2)
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv'
+    )
 
 
 if result == 'parts net amount':
@@ -252,7 +288,16 @@ if result == 'parts net amount':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    b
+    st.dataframe(b.style.format("{:7,.2f}"))
+    b1=b   
+    csv = convert_df(b1)
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv1'
+    )
     st.write(' age of the vehicle <', age1)
 
     c = a[a['age'] < age1]
@@ -271,5 +316,14 @@ if result == 'parts net amount':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    b
+    st.dataframe(b.style.format("{:.2f}"))
+    b2=b
+    csv = convert_df(b2)
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv'
+    )
 
