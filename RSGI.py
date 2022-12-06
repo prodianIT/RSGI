@@ -106,7 +106,8 @@ if result == 'amount paid':
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     st.write(' age of the vehicle >=', age1)
-    b.round(2)  
+    b1 = b.round(2)  
+    b1
     csv = convert_df(b)
     st.download_button(
        "Press to Download",
@@ -131,8 +132,8 @@ if result == 'amount paid':
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     st.write(' age of the vehicle <', age1)
-    b.round(2)
-    
+    b2= b.round(2)
+    b2
     
 
 
