@@ -22,6 +22,11 @@ for filename in csv_files:
 frame = pd.concat(li, axis=0, ignore_index=True)
 df = frame
 
+#convert to csv
+@st.experimental_memo
+def convert_df(df):
+   return df.to_csv(index=False).encode('utf-8')
+
 st.sidebar.header("Please Filter Here:")
 # type = st.sidebar.multiselect(
 #     "Select the Type:",
@@ -97,8 +102,15 @@ if result == 'amount paid':
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     st.write(' age of the vehicle >=', age)
-    b
-    st.download_button('Download CSV', b, 'text/csv')
+    b  
+    csv = convert_df(b)
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv'
+    )
     c = a[a['year_of_manufacture']< year_of_manufacture]
     b = c.pivot_table(values='amount_paid_y',
                       index=['year_month'],
