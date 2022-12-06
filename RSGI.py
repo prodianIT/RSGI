@@ -74,8 +74,8 @@ st.title(":bar_chart: RSGI Dashboard")
 st.markdown("##")
 x = a["age"].unique()
 x=sorted(x)
-age1 = st.number_input('Enter the vehicle age:')
-st.write('The current number is ', number)
+age1 = st.number_input('Enter the vehicle age:', step = int, value=4)
+
 # age1 = st.select_slider(
 #     'Select the year of manufacture of the vehicle',
 #     options=x,
