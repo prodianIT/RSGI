@@ -74,10 +74,12 @@ st.title(":bar_chart: RSGI Dashboard")
 st.markdown("##")
 x = a["age"].unique()
 x=sorted(x)
-age1 = st.select_slider(
-    'Select the year of manufacture of the vehicle',
-    options=x,
-    value=(4))
+age1 = st.number_input('Enter the vehicle age:')
+st.write('The current number is ', number)
+# age1 = st.select_slider(
+#     'Select the year of manufacture of the vehicle',
+#     options=x,
+#     value=(4))
 st.write('You selected the year', age1 )
 option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
 result = st.selectbox('select your analysis category', option_list)
