@@ -90,8 +90,11 @@ x=sorted(x)
 # result = st.selectbox('select your analysis category', option_list)
 values = st.slider(
     'Select a range of values',
-    0.0, 100.0, (25.0, 75.0))
+    0.0, 100.0, (25.0, 75.0), step=1)
 st.write('Values:', values)
+a,b=values
+a
+b
 
 # if result == 'amount paid':
 #     # claim amount
