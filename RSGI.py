@@ -26,6 +26,12 @@ df = pd.concat(li, axis=0, ignore_index=True)
 def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
 
+def filedownload(df):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
+    href = f'<a href="data:file/csv;base64,{b64}" download="prediction.csv">Download Predictions</a>'
+    return href
+
 st.sidebar.header("Please Filter Here:")
 # type = st.sidebar.multiselect(
 #     "Select the Type:",
@@ -107,15 +113,16 @@ if result == 'amount paid':
            'TRS_%']]
 #     st.write(' age of the vehicle >=', age1)
     st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
+    st.markdown(filedownload(b), unsafe_allow_html=True)
+#     b1=b   
+#     csv = convert_df(b1)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv1'
+#     )
 #     c = a[a['age']< age1]
 #     b = c.pivot_table(values='amount_paid_y',
 #                       index=['year_month'],
