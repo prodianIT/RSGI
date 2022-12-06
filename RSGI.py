@@ -30,7 +30,7 @@ def convert_df(df):
 def filedownload(df):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    href = f'<a href="data:file/csv;base64,{b64}" download="prediction.csv">Download Predictions</a>'
+    href = f'<a href="data:file/csv;base64,{b64}" download="file.csv">Download table</a>'
     return href
 
 st.sidebar.header("Please Filter Here:")
@@ -176,15 +176,7 @@ if result == 'claim count':
            'TRS_%']]
 
     st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
+    st.markdown(filedownload(b), unsafe_allow_html=True)
 #         claim counts
 #     st.header('*claim_number*')
 #     st.caption('count in thousands')
@@ -238,15 +230,7 @@ if result == 'repair amount':
            'TRS_%']]
 
     st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
+    st.markdown(filedownload(b), unsafe_allow_html=True)
 #     st.write(' age of the vehicle <', age1)
 #     st.caption('amount in crores')
 #     c = a[a['age']< age1]
@@ -298,15 +282,7 @@ if result == 'parts net amount':
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
+    st.markdown(filedownload(b), unsafe_allow_html=True)
 #     st.write(' age of the vehicle <', age1)
 
 #     c = a[a['age'] < age1]
