@@ -98,6 +98,7 @@ if result == 'amount paid':
            'TRS_%']]
     st.write(' age of the vehicle >=', age)
     b
+    st.download_button('Download CSV', b, 'text/csv')
     c = a[a['year_of_manufacture']< year_of_manufacture]
     b = c.pivot_table(values='amount_paid_y',
                       index=['year_month'],
