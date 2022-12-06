@@ -154,7 +154,7 @@ if result == 'claim count':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    st.write(' age of the vehicle >=', age)
+    st.write(' age of the vehicle >=', age1)
     b
         # claim counts
     st.header('*claim_number*')
