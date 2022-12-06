@@ -114,7 +114,7 @@ if result == 'amount paid':
        csv,
        "file.csv",
        "text/csv",
-       key='download-csv'
+       key='download-csv1'
     )
     c = a[a['age']< age1]
     b = c.pivot_table(values='amount_paid_y',
