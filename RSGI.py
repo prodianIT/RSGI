@@ -90,7 +90,7 @@ x=sorted(x)
 # result = st.selectbox('select your analysis category', option_list)
 values = st.slider(
     'Select a range of values',
-    0.0, 100.0, (25.0, 75.0), step=1)
+    0, 100, (25, 75), step=1)
 st.write('Values:', values)
 a,b=values
 a
