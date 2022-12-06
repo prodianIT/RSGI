@@ -88,7 +88,7 @@ if result == 'amount paid':
     st.header('*amount_paid*')
     st.caption('amount in crores')
 #     age of the vehicle >', age
-    c = a[a['year_of_manufacture']>= year_of_manufacture]
+    c = a[a['age']>= age1]
     b = c.pivot_table(values='amount_paid_y',
                       index=['year_month'],
                       columns=['reapairer_type'],
@@ -103,7 +103,7 @@ if result == 'amount paid':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    st.write(' age of the vehicle >=', age)
+    st.write(' age of the vehicle >=', age1)
     b  
     csv = convert_df(b)
     st.download_button(
@@ -113,7 +113,7 @@ if result == 'amount paid':
        "text/csv",
        key='download-csv'
     )
-    c = a[a['year_of_manufacture']< year_of_manufacture]
+    c = a[a['age']< age1]
     b = c.pivot_table(values='amount_paid_y',
                       index=['year_month'],
                       columns=['reapairer_type'],
@@ -128,7 +128,7 @@ if result == 'amount paid':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    st.write(' age of the vehicle <', age)
+    st.write(' age of the vehicle <', age1)
     b
     
     
@@ -139,13 +139,13 @@ if result == 'claim count':
     # claim counts
     st.header('*claim_number*')
     st.caption('count in thousands')
-    c = a[a['year_of_manufacture']>= year_of_manufacture]
+    c = a[a['age']>= age1]
     b = c.pivot_table(values='claim_number',
-                      index=['year_month', 'Ageofthevehicle'],
+                      index=['year_month'],
                       columns=['reapairer_type'],
                       aggfunc='count')
     b.reset_index(inplace=True)
-    b.columns = ['year_month', 'Ageofthevehicle', 'dealer', 'OTHERS', 'TRS']
+    b.columns = ['year_month',  'dealer', 'OTHERS', 'TRS']
     b['dealer'] = b['dealer'] / 1000
     b['OTHERS'] = b['OTHERS'] / 1000
     b['TRS'] = b['TRS'] / 1000
@@ -159,13 +159,13 @@ if result == 'claim count':
         # claim counts
     st.header('*claim_number*')
     st.caption('count in thousands')
-    c = a[a['year_of_manufacture']< year_of_manufacture]
+    c = a[a['age']< age1]
     b = c.pivot_table(values='claim_number',
-                      index=['year_month', 'Ageofthevehicle'],
+                      index=['year_month'],
                       columns=['reapairer_type'],
                       aggfunc='count')
     b.reset_index(inplace=True)
-    b.columns = ['year_month', 'Ageofthevehicle', 'dealer', 'OTHERS', 'TRS']
+    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
     b['dealer'] = b['dealer'] / 1000
     b['OTHERS'] = b['OTHERS'] / 1000
     b['TRS'] = b['TRS'] / 1000
@@ -174,22 +174,22 @@ if result == 'claim count':
     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
     b = b[['year_month','dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
-    st.write(' age of the vehicle <', age)
+    st.write(' age of the vehicle <', age1)
     b
 
 
 if result == 'repair amount':
     # repair amount
     st.header('*netlabmountsum*')
-    st.write(' age of the vehicle >=', age)
+    st.write(' age of the vehicle >=', age1)
     st.caption('amount in crores')
-    c = a[a['year_of_manufacture']>= year_of_manufacture]
+    c = a[a['age']>= age1]
     b = c.pivot_table(values='netlabmountsum',
-                      index=['year_month', 'Ageofthevehicle'],
+                      index=['year_month'],
                       columns=['reapairer_type'],
                       aggfunc='sum')
     b.reset_index(inplace=True)
-    b.columns = ['year_month', 'Ageofthevehicle', 'dealer', 'OTHERS', 'TRS']
+    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
     b['dealer'] = b['dealer'] / 10000000
     b['OTHERS'] = b['OTHERS'] / 10000000
     b['TRS'] = b['TRS'] / 10000000
@@ -200,15 +200,15 @@ if result == 'repair amount':
            'TRS_%']]
 
     b
-    st.write(' age of the vehicle <', age)
+    st.write(' age of the vehicle <', age1)
     st.caption('amount in crores')
-    c = a[a['year_of_manufacture']< year_of_manufacture]
+    c = a[a['age']< age1]
     b = c.pivot_table(values='netlabmountsum',
-                      index=['year_month', 'Ageofthevehicle'],
+                      index=['year_month'],
                       columns=['reapairer_type'],
                       aggfunc='sum')
     b.reset_index(inplace=True)
-    b.columns = ['year_month', 'Ageofthevehicle', 'dealer', 'OTHERS', 'TRS']
+    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
     b['dealer'] = b['dealer'] / 10000000
     b['OTHERS'] = b['OTHERS'] / 10000000
     b['TRS'] = b['TRS'] / 10000000
@@ -223,16 +223,16 @@ if result == 'repair amount':
 if result == 'parts net amount':
     # parts amount
     st.header('*parts_net_amountsum*')
-    st.write(' age of the vehicle >=', age)
+    st.write(' age of the vehicle >=', age1)
 
-    c = a[a['year_of_manufacture'] >= year_of_manufacture]
+    c = a[a['age'] >= age1]
     st.caption('amount in crores')
     b = a.pivot_table(values='parts_net_amountsum',
-                      index=['year_month', 'Ageofthevehicle'],
+                      index=['year_month'],
                       columns=['reapairer_type'],
                       aggfunc='sum')
     b.reset_index(inplace=True)
-    b.columns = ['year_month', 'Ageofthevehicle', 'dealer', 'OTHERS', 'TRS']
+    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
     b['dealer'] = b['dealer'] / 10000000
     b['OTHERS'] = b['OTHERS'] / 10000000
     b['TRS'] = b['TRS'] / 10000000
@@ -242,16 +242,16 @@ if result == 'parts net amount':
     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
            'TRS_%']]
     b
-    st.write(' age of the vehicle <', age)
+    st.write(' age of the vehicle <', age1)
 
-    c = a[a['year_of_manufacture'] < year_of_manufacture]
+    c = a[a['age'] < age1]
     st.caption('amount in crores')
     b = a.pivot_table(values='parts_net_amountsum',
-                      index=['year_month', 'Ageofthevehicle'],
+                      index=['year_month'],
                       columns=['reapairer_type'],
                       aggfunc='sum')
     b.reset_index(inplace=True)
-    b.columns = ['year_month', 'Ageofthevehicle', 'dealer', 'OTHERS', 'TRS']
+    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
     b['dealer'] = b['dealer'] / 10000000
     b['OTHERS'] = b['OTHERS'] / 10000000
     b['TRS'] = b['TRS'] / 10000000
