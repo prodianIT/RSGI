@@ -74,256 +74,261 @@ st.title(":bar_chart: RSGI Dashboard")
 st.markdown("##")
 x = a["age"].unique()
 x=sorted(x)
-age1 = st.number_input('Enter the vehicle age:', min_value=1, max_value=29, value=4, step=1)
+# age1 = st.number_input('Enter the vehicle age:', min_value=1, max_value=29, value=4, step=1)
 
 # age1 = st.select_slider(
 #     'Select the year of manufacture of the vehicle',
 #     options=x,
 #     value=(4))
+
+age1 = st.select_slider(
+    'Select the year of manufacture of the vehicle',
+    options=x,
+    value=[1,30])
 st.write('You selected the year', age1 )
 option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
 result = st.selectbox('select your analysis category', option_list)
 
 
-if result == 'amount paid':
-    # claim amount
-    st.header('*amount_paid*')
-    st.caption('amount in crores')
-#     age of the vehicle >', age
-    c = a[a['age']>= age1]
-    b = c.pivot_table(values='amount_paid_y',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='sum')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 10000000
-    b['OTHERS'] = b['OTHERS'] / 10000000
-    b['TRS'] = b['TRS'] / 10000000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
-    st.write(' age of the vehicle >=', age1)
-    st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
-    c = a[a['age']< age1]
-    b = c.pivot_table(values='amount_paid_y',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='sum')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 10000000
-    b['OTHERS'] = b['OTHERS'] / 10000000
-    b['TRS'] = b['TRS'] / 10000000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
-    st.write(' age of the vehicle <', age1)
-    st.dataframe(b.style.format("{:.2f}"))
-    b2=b
-    csv = convert_df(b2)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv'
-    )
+# if result == 'amount paid':
+#     # claim amount
+#     st.header('*amount_paid*')
+#     st.caption('amount in crores')
+# #     age of the vehicle >', age
+# #     c = a[a['age']>= age1]
+#     b = c.pivot_table(values='amount_paid_y',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='sum')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 10000000
+#     b['OTHERS'] = b['OTHERS'] / 10000000
+#     b['TRS'] = b['TRS'] / 10000000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
+#     st.write(' age of the vehicle >=', age1)
+#     st.dataframe(b.style.format("{:7,.2f}"))
+#     b1=b   
+#     csv = convert_df(b1)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv1'
+#     )
+#     c = a[a['age']< age1]
+#     b = c.pivot_table(values='amount_paid_y',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='sum')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 10000000
+#     b['OTHERS'] = b['OTHERS'] / 10000000
+#     b['TRS'] = b['TRS'] / 10000000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
+#     st.write(' age of the vehicle <', age1)
+#     st.dataframe(b.style.format("{:.2f}"))
+#     b2=b
+#     csv = convert_df(b2)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv'
+#     )
     
 
 
 
-if result == 'claim count':
-    # claim counts
-    st.header('*claim_number*')
-    st.caption('count in thousands')
-    c = a[a['age']>= age1]
-    b = c.pivot_table(values='claim_number',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='count')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month',  'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 1000
-    b['OTHERS'] = b['OTHERS'] / 1000
-    b['TRS'] = b['TRS'] / 1000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
-    st.write(' age of the vehicle >=', age1)
-    st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
+# if result == 'claim count':
+#     # claim counts
+#     st.header('*claim_number*')
+#     st.caption('count in thousands')
+# #     c = a[a['age']>= age1]
+#     b = c.pivot_table(values='claim_number',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='count')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month',  'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 1000
+#     b['OTHERS'] = b['OTHERS'] / 1000
+#     b['TRS'] = b['TRS'] / 1000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
+#     st.write(' age of the vehicle >=', age1)
+#     st.dataframe(b.style.format("{:7,.2f}"))
+#     b1=b   
+#     csv = convert_df(b1)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv1'
+#     )
         # claim counts
-    st.header('*claim_number*')
-    st.caption('count in thousands')
-    c = a[a['age']< age1]
-    b = c.pivot_table(values='claim_number',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='count')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 1000
-    b['OTHERS'] = b['OTHERS'] / 1000
-    b['TRS'] = b['TRS'] / 1000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month','dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
-    st.write(' age of the vehicle <', age1)
-    st.dataframe(b.style.format("{:.2f}"))
-    b2=b
-    csv = convert_df(b2)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv'
-    )
+#     st.header('*claim_number*')
+#     st.caption('count in thousands')
+#     c = a[a['age']< age1]
+#     b = c.pivot_table(values='claim_number',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='count')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 1000
+#     b['OTHERS'] = b['OTHERS'] / 1000
+#     b['TRS'] = b['TRS'] / 1000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month','dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
+#     st.write(' age of the vehicle <', age1)
+#     st.dataframe(b.style.format("{:.2f}"))
+#     b2=b
+#     csv = convert_df(b2)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv'
+#     )
 
 
-if result == 'repair amount':
-    # repair amount
-    st.header('*netlabmountsum*')
-    st.write(' age of the vehicle >=', age1)
-    st.caption('amount in crores')
-    c = a[a['age']>= age1]
-    b = c.pivot_table(values='netlabmountsum',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='sum')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 10000000
-    b['OTHERS'] = b['OTHERS'] / 10000000
-    b['TRS'] = b['TRS'] / 10000000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month',  'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
+# if result == 'repair amount':
+#     # repair amount
+#     st.header('*netlabmountsum*')
+#     st.write(' age of the vehicle >=', age1)
+#     st.caption('amount in crores')
+#     c = a[a['age']>= age1]
+#     b = c.pivot_table(values='netlabmountsum',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='sum')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 10000000
+#     b['OTHERS'] = b['OTHERS'] / 10000000
+#     b['TRS'] = b['TRS'] / 10000000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month',  'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
 
-    st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
-    st.write(' age of the vehicle <', age1)
-    st.caption('amount in crores')
-    c = a[a['age']< age1]
-    b = c.pivot_table(values='netlabmountsum',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='sum')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 10000000
-    b['OTHERS'] = b['OTHERS'] / 10000000
-    b['TRS'] = b['TRS'] / 10000000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month',  'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
-    st.dataframe(b.style.format("{:.2f}"))
-    b2=b
-    csv = convert_df(b2)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv'
-    )
+#     st.dataframe(b.style.format("{:7,.2f}"))
+#     b1=b   
+#     csv = convert_df(b1)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv1'
+#     )
+#     st.write(' age of the vehicle <', age1)
+#     st.caption('amount in crores')
+#     c = a[a['age']< age1]
+#     b = c.pivot_table(values='netlabmountsum',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='sum')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 10000000
+#     b['OTHERS'] = b['OTHERS'] / 10000000
+#     b['TRS'] = b['TRS'] / 10000000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month',  'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
+#     st.dataframe(b.style.format("{:.2f}"))
+#     b2=b
+#     csv = convert_df(b2)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv'
+#     )
 
 
-if result == 'parts net amount':
-    # parts amount
-    st.header('*parts_net_amountsum*')
-    st.write(' age of the vehicle >=', age1)
+# if result == 'parts net amount':
+#     # parts amount
+#     st.header('*parts_net_amountsum*')
+#     st.write(' age of the vehicle >=', age1)
 
-    c = a[a['age'] >= age1]
-    st.caption('amount in crores')
-    b = a.pivot_table(values='parts_net_amountsum',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='sum')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 10000000
-    b['OTHERS'] = b['OTHERS'] / 10000000
-    b['TRS'] = b['TRS'] / 10000000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
-    st.dataframe(b.style.format("{:7,.2f}"))
-    b1=b   
-    csv = convert_df(b1)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv1'
-    )
-    st.write(' age of the vehicle <', age1)
+#     c = a[a['age'] >= age1]
+#     st.caption('amount in crores')
+#     b = a.pivot_table(values='parts_net_amountsum',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='sum')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 10000000
+#     b['OTHERS'] = b['OTHERS'] / 10000000
+#     b['TRS'] = b['TRS'] / 10000000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
+#     st.dataframe(b.style.format("{:7,.2f}"))
+#     b1=b   
+#     csv = convert_df(b1)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv1'
+#     )
+#     st.write(' age of the vehicle <', age1)
 
-    c = a[a['age'] < age1]
-    st.caption('amount in crores')
-    b = a.pivot_table(values='parts_net_amountsum',
-                      index=['year_month'],
-                      columns=['reapairer_type'],
-                      aggfunc='sum')
-    b.reset_index(inplace=True)
-    b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
-    b['dealer'] = b['dealer'] / 10000000
-    b['OTHERS'] = b['OTHERS'] / 10000000
-    b['TRS'] = b['TRS'] / 10000000
-    b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
-    b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
-    b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
-    b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
-           'TRS_%']]
-    st.dataframe(b.style.format("{:.2f}"))
-    b2=b
-    csv = convert_df(b2)
-    st.download_button(
-       "Press to Download",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv'
-    )
+#     c = a[a['age'] < age1]
+#     st.caption('amount in crores')
+#     b = a.pivot_table(values='parts_net_amountsum',
+#                       index=['year_month'],
+#                       columns=['reapairer_type'],
+#                       aggfunc='sum')
+#     b.reset_index(inplace=True)
+#     b.columns = ['year_month', 'dealer', 'OTHERS', 'TRS']
+#     b['dealer'] = b['dealer'] / 10000000
+#     b['OTHERS'] = b['OTHERS'] / 10000000
+#     b['TRS'] = b['TRS'] / 10000000
+#     b['dealer_%'] = (b['dealer'] / b['dealer'].sum()) * 100
+#     b['OTHERS_%'] = (b['OTHERS'] / b['OTHERS'].sum()) * 100
+#     b['TRS_%'] = (b['TRS'] / b['TRS'].sum()) * 100
+#     b = b[['year_month', 'dealer', 'dealer_%', 'OTHERS', 'OTHERS_%', 'TRS',
+#            'TRS_%']]
+#     st.dataframe(b.style.format("{:.2f}"))
+#     b2=b
+#     csv = convert_df(b2)
+#     st.download_button(
+#        "Press to Download",
+#        csv,
+#        "file.csv",
+#        "text/csv",
+#        key='download-csv'
+#     )
 
