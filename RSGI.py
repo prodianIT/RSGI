@@ -4,6 +4,7 @@ import streamlit as st  # pip install streamlit
 import altair as alt
 import numpy as np
 from datetime import date
+import base64
 
 st.set_page_config(page_title="RSGI Dashboard", page_icon=":bar_chart:", layout="wide")
 # ---- SIDEBAR ----
