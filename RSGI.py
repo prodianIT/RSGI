@@ -13,6 +13,8 @@ csv_files = ['data.000.csv', 'data.001.csv', 'data.002.csv', 'data.003.csv', 'da
 todays_date = date.today()
 this_year = todays_date.year
 
+
+
 li = []
 
 for filename in csv_files:
@@ -66,20 +68,20 @@ Reapairer_type = st.sidebar.multiselect(
 a = df.query(
     "luxury_model == @Luxury_model & type_of_claim ==@Type_of_claim & losscategory == @Losscategory & year_month == @Year_filter & reapairer_type == @Reapairer_type"
 )
-
+a['age'] = this_year - a['year_of_manufacture']
 # ---- MAINPAGE ----
 st.title(":bar_chart: RSGI Dashboard")
 st.markdown("##")
-x = a["year_of_manufacture"].unique()
+x = a["age"].unique()
 x=sorted(x)
-year_of_manufacture = st.select_slider(
+age1 = st.select_slider(
     'Select the year of manufacture of the vehicle',
     options=x,
-    value=(2018))
-st.write('You selected the year', year_of_manufacture )
+    value=(4))
+st.write('You selected the year', age1 )
 option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
 result = st.selectbox('select your analysis category', option_list)
-age = this_year -  year_of_manufacture
+
 
 if result == 'amount paid':
     # claim amount
