@@ -90,8 +90,7 @@ if result == 'amount paid':
     # claim amount
     st.header('*amount_paid*')
     st.caption('amount in crores')
-#     age of the vehicle >', age
-    c = a[a['age']> aage & a['age']> bage]
+    c = a[(a['age']> aage) & (a['age']< bage)]
     b = c.pivot_table(values='amount_paid_y',
                       index=['year_month'],
                       columns=['reapairer_type'],
