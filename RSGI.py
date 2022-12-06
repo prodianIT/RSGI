@@ -81,14 +81,17 @@ x=sorted(x)
 #     options=x,
 #     value=(4))
 
-age1 = st.select_slider(
-    'Select the year of manufacture of the vehicle',
-    options=x,
-    value=[1,30])
-st.write('You selected the year', age1 )
-option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
-result = st.selectbox('select your analysis category', option_list)
-
+# age1 = st.select_slider(
+#     'Select the year of manufacture of the vehicle',
+#     options=x,
+#     value=[1,30])
+# st.write('You selected the year', age1 )
+# option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
+# result = st.selectbox('select your analysis category', option_list)
+values = st.slider(
+    'Select a range of values',
+    0.0, 100.0, (25.0, 75.0))
+st.write('Values:', values)
 
 # if result == 'amount paid':
 #     # claim amount
