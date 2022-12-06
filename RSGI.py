@@ -13,16 +13,13 @@ csv_files = ['data.000.csv', 'data.001.csv', 'data.002.csv', 'data.003.csv', 'da
 todays_date = date.today()
 this_year = todays_date.year
 
-
-
 li = []
 
 for filename in csv_files:
     df = pd.read_csv(filename, index_col=None, header=0)
     li.append(df)
 
-frame = pd.concat(li, axis=0, ignore_index=True)
-df = frame
+df = pd.concat(li, axis=0, ignore_index=True)
 
 #convert to csv
 @st.experimental_memo
@@ -81,11 +78,11 @@ x=sorted(x)
 #     options=x,
 #     value=(4))
 
-# age1 = st.select_slider(
-#     'Select the year of manufacture of the vehicle',
-#     options=x,
-#     value=[1,30])
-# st.write('You selected the year', age1 )
+age1 = st.select_slider(
+    'Select the year of manufacture of the vehicle',
+        1, 30, (4, 21), step=1)
+aage,bage=age1
+st.write('You selected the age between :', aage,'&',bage )
 # option_list = ['amount paid', 'claim count', 'repair amount', 'parts net amount']
 # result = st.selectbox('select your analysis category', option_list)
 values = st.slider(
